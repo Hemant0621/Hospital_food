@@ -16,7 +16,6 @@ mongoose.connect(process.env.MONGOOSE_CONNECTING_STRING || "", {
 
 app.use(cors());
 app.use(bodyParser.json());
-
 app.use("/manager", manager );
 app.use("/pantry", pantry);
 app.use("/delivery", delivery);
