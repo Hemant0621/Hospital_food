@@ -1,7 +1,7 @@
 // App.tsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./components/Landing";
-import Manager from "./components/Manager";
+import Manager from "./components/Manager/Manager";
 import Pantry from "./components/Pantry";
 import AuthPage from "./components/User";
 

@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Backend_url from "../../config"
+
 
 const AuthPage = () => {
   const { role } = useParams();
@@ -16,8 +18,9 @@ const AuthPage = () => {
     try {
       if (isLogin) {
         // Login
-        const response = await axios.post("http://localhost:5000/auth/login", { email, password });
+        const response = await axios.post(`${Backend_url}/auth/login`, { email, password });
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", response.data.user);
         if(role=='manager'){
           navigate('/manager')
         }else{
@@ -25,7 +28,7 @@ const AuthPage = () => {
         }
       } else {
         // Registration
-        await axios.post("http://localhost:5000/auth/register", { name, username, email, password, role });
+        await axios.post(`${Backend_url}/auth/register`, { name, username, email, password, role });
         alert("Registration successful. Please log in.");
         setIsLogin(true);
       }
