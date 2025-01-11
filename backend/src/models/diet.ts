@@ -1,27 +1,38 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from 'mongoose';
 
-interface IDietChart extends Document {
-    patientId: mongoose.Schema.Types.ObjectId; // Reference to patient
-    mealPlan: {
-        breakfast: string;
-        lunch: string;
-        dinner: string;
-        snacks: string;
-    };
-    startDate: Date;
-    endDate: Date;
+export interface IDietChart {
+  morningMeal: {
+    ingredients: string[];
+  };
+  eveningMeal: {
+    ingredients: string[];
+  };
+  nightMeal: {
+    ingredients: string[];
+  };
+  createdBy: mongoose.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-const DietChartSchema: Schema = new Schema({
-    patientId: { type: Schema.Types.ObjectId, ref: "Patient", required: true },
-    mealPlan: {
-        breakfast: { type: String, required: true },
-        lunch: { type: String, required: true },
-        dinner: { type: String, required: true },
-        snacks: { type: String, required: true },
+const DietChartSchema = new Schema<IDietChart>(
+  {
+    morningMeal: {
+      ingredients: { type: [String], required: true },
     },
-    startDate: { type: Date, required: true },
-    endDate: { type: Date, required: true },
-});
+    eveningMeal: {
+      ingredients: { type: [String], required: true },
+    },
+    nightMeal: {
+      ingredients: { type: [String], required: true },
+    },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model<IDietChart>("DietChart", DietChartSchema);
+const DietChart = mongoose.model<IDietChart>('DietChart', DietChartSchema);
+
+export default DietChart;

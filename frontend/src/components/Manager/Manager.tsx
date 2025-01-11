@@ -2,8 +2,8 @@ import { useState } from 'react';
 import Navbar from '../Navbar';
 import Manager_dashboard from './Manager_dashboard';
 import Manager_patient from './Manager_patient';
-import Manager_Menu from './Manager_Menu';
 import Manager_report from './Manager_report';
+import Manager_Diet from './Manager_Diet';
 
 // Create a context or prop to share sidebar state between components
 interface DashboardProps {
@@ -40,7 +40,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
             {[
               { id: 'dashboard', label: 'Dashboard' },
               { id: 'patients', label: 'Patients' },
-              { id: 'menu', label: 'Menu' },
+              { id: 'Diet', label: 'Diet' },
               { id: 'report', label: 'Sales Report' },
             ].map((item) => (
               <div
@@ -69,7 +69,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           <div className="container mx-auto">
             {activeComponent === 'dashboard' && <Manager_dashboard />}
             {activeComponent === 'patients' && <Manager_patient />}
-            {activeComponent === 'menu' && <Manager_Menu />}
+            {activeComponent === 'Diet' && <Manager_Diet />}
             {activeComponent === 'report' && <Manager_report />}
           </div>
         </main>
