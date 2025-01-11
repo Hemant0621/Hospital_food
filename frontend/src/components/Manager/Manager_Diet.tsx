@@ -61,6 +61,7 @@ const Manager_Diet: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
+    console.log(formData)
     try {
       const response = await axiosInstance.post(
         '/manager/diets',
@@ -105,10 +106,12 @@ const Manager_Diet: React.FC = () => {
               </label>
               <input type="text" 
               className='w-full p-2 border rounded-md '
-              onChange={(e) => setFormData({
+              value={formData.name}
+              onChange={(e) => {setFormData({
                 ...formData,
                 name: e.target.value
-              })}
+              })
+            }}
               />
             </div>
             <div className="space-y-2">

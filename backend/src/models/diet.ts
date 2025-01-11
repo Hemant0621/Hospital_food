@@ -17,6 +17,7 @@ export interface IDietChart {
 
 const DietChartSchema = new Schema<IDietChart>(
   {
+    name : {type : String, required : true},
     morningMeal: {
       ingredients: { type: [String], required: true },
     },

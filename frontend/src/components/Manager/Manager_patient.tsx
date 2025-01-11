@@ -271,7 +271,7 @@ const Manager_patient: React.FC = () => {
             <option value="">Select Meal</option>
             {meals.map(meal => (
               <option key={meal._id} value={meal._id}>
-                {meal.morningMeal.ingredients}
+                {meal.name}
               </option>
             ))}
           </select>
