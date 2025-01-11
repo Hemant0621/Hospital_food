@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../axiosInstance';
 
-interface Meal {
-  _id: string;
-  name: string;
-  // Add other meal properties as needed
+interface IDietChart {
+  _id : string,
+  name : string,
+  morningMeal: {
+    ingredients: string[];
+  };
+  eveningMeal: {
+    ingredients: string[];
+  };
+  nightMeal: {
+    ingredients: string[];
+  };
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 interface Patient {
@@ -44,16 +54,29 @@ const Manager_patient: React.FC = () => {
   });
 
   const [patients, setPatients] = useState<Patient[]>([]);
-  const [meals, setMeals] = useState<Meal[]>([]);
+  const [meals, setMeals] = useState<IDietChart[]>([]);
   const [show, setshow] = useState(false);
 
   // Fetch patients and meals from the backend
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = window.localStorage.getItem('token')
         const [patientsResponse, mealsResponse] = await Promise.all([
-          axiosInstance.get('/patients'),
-          axiosInstance.get('/meals')
+          axiosInstance.get('/manager/patients', {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": true,
+              Authorization: `Bearer ${token}`,
+            }
+          }),
+          axiosInstance.get('/manager/diets', {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": true,
+              Authorization: `Bearer ${token}`,
+            }
+          })
         ]);
         setPatients(patientsResponse.data);
         setMeals(mealsResponse.data);
@@ -136,7 +159,7 @@ const Manager_patient: React.FC = () => {
     <div className="p-4 md:p-6 bg-gray-100 min-h-screen">
       <div className='flex justify-between pb-4 duration-300 transition-all'>
         <h1 className="text-xl md:text-2xl font-bold">Manage Patients</h1>
-        <button className='bg-[#fb923c] font-bold p-2 rounded-md' onClick={()=>setshow(!show)}>Add Patients</button>
+        <button className='bg-[#fb923c] font-bold p-2 rounded-md' onClick={() => setshow(!show)}>Add Patients</button>
       </div>
 
       {show && <form onSubmit={handleSubmit} className="bg-white p-4 md:p-6 rounded shadow-md mb-6">
@@ -248,7 +271,7 @@ const Manager_patient: React.FC = () => {
             <option value="">Select Meal</option>
             {meals.map(meal => (
               <option key={meal._id} value={meal._id}>
-                {meal.name}
+                {meal.morningMeal.ingredients}
               </option>
             ))}
           </select>
