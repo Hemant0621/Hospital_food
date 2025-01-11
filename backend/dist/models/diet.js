@@ -34,7 +34,6 @@ const DietChartSchema = new mongoose_1.Schema({
     nightMeal: {
         ingredients: { type: [String], required: true },
     },
-    createdBy: { type: mongoose_1.default.Schema.Types.ObjectId, ref: 'User', required: true },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 }, { timestamps: true });

@@ -10,7 +10,6 @@ export interface IDietChart {
   nightMeal: {
     ingredients: string[];
   };
-  createdBy: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -26,7 +25,6 @@ const DietChartSchema = new Schema<IDietChart>(
     nightMeal: {
       ingredients: { type: [String], required: true },
     },
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
