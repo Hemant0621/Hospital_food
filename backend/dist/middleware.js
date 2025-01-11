@@ -33,3 +33,4 @@ const authorizeRole = (role) => {
     };
 };
 exports.authorizeRole = authorizeRole;
+//# sourceMappingURL=middleware.js.map

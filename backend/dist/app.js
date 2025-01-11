@@ -23,3 +23,4 @@ app.use("/pantry", pantry_1.default);
 app.use("/delivery", delivery_1.default);
 app.use("/auth", auth_1.default);
 exports.default = app;
+//# sourceMappingURL=app.js.map

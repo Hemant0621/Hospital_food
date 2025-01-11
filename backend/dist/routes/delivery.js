@@ -7,3 +7,4 @@ router.get("/", middleware_1.authenticate, (0, middleware_1.authorizeRole)("deli
     res.json({ message: "Welcome to Delivery Dashboard" });
 });
 exports.default = router;
+//# sourceMappingURL=delivery.js.map

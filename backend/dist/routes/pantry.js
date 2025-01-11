@@ -7,3 +7,4 @@ router.get("/", middleware_1.authenticate, (0, middleware_1.authorizeRole)("pant
     res.json({ message: "Welcome to Pantry Dashboard" });
 });
 exports.default = router;
+//# sourceMappingURL=pantry.js.map

@@ -144,6 +144,9 @@ router.get('/diets', authenticate, authorizeRole('manager'), getAllDiets);
 router.get('/diets/:id', authenticate, authorizeRole('manager'), getDietById);
 router.put('/diets/:id', authenticate, authorizeRole('manager'), updateDiet);
 router.delete('/diets/:id', authenticate, authorizeRole('manager'), deleteDiet);
+router.get('/',(req,res)=>{
+  res.send("checing")
+})
 
 
 router.post('/patients', authenticate , authorizeRole('manager'), addPatient);
