@@ -51,14 +51,24 @@ const Manager_Diet: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
     try {
-      const response = await axiosInstance.post('/manager/diets', formData);
+      const response = await axiosInstance.post(
+        '/manager/diets',
+        formData,
+        {
+          headers: {  
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       setDietCharts([...dietCharts, response.data]);
       alert('Diet chart created successfully');
       setFormData({
         morningMeal: { ingredients: [] },
         eveningMeal: { ingredients: [] },
-        nightMeal: { ingredients: [] }
+        nightMeal: { ingredients: [] },
       });
     } catch (error) {
       console.error('Failed to create diet chart:', error);
@@ -74,7 +84,7 @@ const Manager_Diet: React.FC = () => {
         {/* Create Diet Chart Form */}
         <form onSubmit={handleSubmit} className="bg-white p-4 md:p-6 rounded shadow-md mb-6">
           <h2 className="text-lg md:text-xl font-bold mb-4">Create New Diet Chart</h2>
-          
+
           <div className="space-y-6">
             {/* Morning Meal */}
             <div className="space-y-2">
@@ -130,7 +140,7 @@ const Manager_Diet: React.FC = () => {
         {/* Diet Charts List */}
         <div className="bg-white p-4 md:p-6 rounded shadow-md overflow-x-auto">
           <h2 className="text-lg md:text-xl font-bold mb-4">Diet Charts</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {dietCharts.map((diet, index) => (
               <div key={index} className="border rounded-md p-4">
@@ -169,7 +179,7 @@ const Manager_Diet: React.FC = () => {
               </div>
             ))}
           </div>
-          
+
           {dietCharts.length === 0 && (
             <p className="text-center text-gray-500">No diet charts available</p>
           )}

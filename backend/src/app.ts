@@ -14,9 +14,12 @@ mongoose.connect(process.env.MONGOOSE_CONNECTING_STRING || "", {
   useUnifiedTopology: true,
 } as ConnectOptions);
 
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+}));
 app.use(bodyParser.json());
-app.use("/manager", manager );
+app.use("/manager", manager);
 app.use("/pantry", pantry);
 app.use("/delivery", delivery);
 app.use("/auth", auth);
