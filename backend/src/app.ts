@@ -9,19 +9,16 @@ import auth from "./routes/auth";
 
 const app = express();
 
-mongoose.connect(process.env.MONGOOSE_CONNECTING_STRING || "", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-} as ConnectOptions);
-
-app.use(cors({
-  origin: '*',
-  allowedHeaders: ['Content-Type', 'Authorization'], 
-}));
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/manager", manager);
 app.use("/pantry", pantry);
 app.use("/delivery", delivery);
 app.use("/auth", auth);
+
+mongoose.connect(process.env.MONGOOSE_CONNECTING_STRING || "", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+} as ConnectOptions);
 
 export default app;
